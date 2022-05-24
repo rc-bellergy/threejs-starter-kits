@@ -5,7 +5,9 @@ import Resources from './utils/resources'
 import Camera from "./camera"
 import Renderer from './renderer'
 import World from './world/world'
+
 import sources from './sources.js'
+import Debug from './utils/Debug'
 
 // For singleton class
 let instance = null
@@ -26,6 +28,7 @@ export default class App {
         instance = this
 
         // Setup
+        this.debug = new Debug()
         this.canvas = canvas
         this.sizes = new Sizes()
         this.time = new Time()

@@ -10,6 +10,13 @@ export default class Particles {
         this.scene = this.app.scene
         this.sizes = this.app.sizes
         this.time = this.app.time
+        this.debug = this.app.debug
+
+        this.settings = {
+            particlesSize: 18,
+            fogNear: 0,
+            fogFar: 50
+        }
 
         this.shaderMaterial = new THREE.ShaderMaterial({
             vertexColors: true,
@@ -20,21 +27,48 @@ export default class Particles {
             fragmentShader: fragmentShader,
             uniforms:
             {
-                uSize: { value: 18 * this.sizes.pixelRatio },
+                uSize: { value: this.settings.particlesSize * this.sizes.pixelRatio },
                 uTime: { value: 0 },
 
-                uFogNear: { value: 0 },
-                uFogFar: { value: 400 }
+                uFogNear: { value: this.settings.fogNear },
+                uFogFar: { value: this.settings.fogFar }
             },
         })
         const particles = this.getParticles(particlesData, 1, [0, 220, 255])
         const object = this.createParticlesObject(particles, this.shaderMaterial)
         this.scene.add(object)
 
+        // Debug
+        this.setDebug()
+
         // Frame update event
         this.time.on('tick', () => {
             this.update()
         })
+    }
+
+    setDebug () {
+        if (this.debug.active) {
+            this.debugFolder = this.debug.ui.addFolder('Particles')
+            this.debugFolder
+                .add(this.settings, 'particlesSize').name('Particles Size')
+                .min(1).max(50).step(1)
+                .onChange(() => {
+                    this.shaderMaterial.uniforms.uSize.value = this.settings.particlesSize * this.sizes.pixelRatio
+                })
+            this.debugFolder
+                .add(this.settings, 'fogNear').name('Fog Near')
+                .min(-50).max(50).step(1)
+                .onChange(() => {
+                    this.shaderMaterial.uniforms.uFogNear.value = this.settings.fogNear
+                })
+            this.debugFolder
+                .add(this.settings, 'fogFar').name('Fog Far')
+                .min(0).max(100).step(1)
+                .onChange(() => {
+                    this.shaderMaterial.uniforms.uFogFar.value = this.settings.fogFar
+                })
+        }
     }
 
     update () {

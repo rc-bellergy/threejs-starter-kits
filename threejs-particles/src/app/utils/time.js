@@ -1,15 +1,28 @@
 import * as THREE from 'three'
+import App from "../app"
 import EventEmitter from "./event_emitter";
+import Stats from 'three/examples/jsm/libs/stats.module.js'
 
 export default class Time extends EventEmitter {
 
-    constructor() {
+    constructor(showStats = true) {
 
         super()
+        this.app = new App()
+        this.debug = this.app.debug
 
+        // Setup
         this.clock = new THREE.Clock()
         this.elapsedTime = 0
 
+        // Add stats UI
+        this.stats = new Stats()
+        this.stats.showPanel(0)
+        if (this.debug.active) {
+            document.body.appendChild(this.stats.dom)
+        }
+
+        // Start the frame loop
         window.requestAnimationFrame(() => {
             this.tick()
         })
@@ -21,7 +34,9 @@ export default class Time extends EventEmitter {
         this.trigger('tick')
 
         window.requestAnimationFrame(() => {
+            this.stats.begin()
             this.tick()
+            this.stats.end()
         })
     }
 
