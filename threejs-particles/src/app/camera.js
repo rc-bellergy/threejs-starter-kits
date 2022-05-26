@@ -1,16 +1,18 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import World from "./app";
+import App from "./app";
 
 export default class Camera {
 
     constructor() {
-        this.world = new World()
-        this.sizes = this.world.sizes
-        this.scene = this.world.scene
-        this.canvas = this.world.canvas
+        this.app = new App()
+        this.sizes = this.app.sizes
+        this.scene = this.app.scene
+        this.canvas = this.app.canvas
+        this.debug = this.app.debug
         this.setInstance()
         this.setOrbitControls()
+        this.setDebug()
     }
 
     setInstance () {
@@ -23,7 +25,21 @@ export default class Camera {
         this.controls = new OrbitControls(this.instance, this.canvas)
         this.controls.target.set(0, 0.75, 0)
         this.controls.enableDamping = true
-        this.controls.autoRotate = false
+        // this.controls.autoRotate = true
+    }
+
+    setDebug () {
+        if (this.debug.active) {
+            this.folder1 = this.debug.ui.addFolder('Camera Position')
+            this.folder1.add(this.instance.position, 'x').listen()
+            this.folder1.add(this.instance.position, 'y').listen()
+            this.folder1.add(this.instance.position, 'z').listen()
+
+            this.folder2 = this.debug.ui.addFolder('Camera Rotation')
+            this.folder2.add(this.instance.rotation, 'x').listen()
+            this.folder2.add(this.instance.rotation, 'y').listen()
+            this.folder2.add(this.instance.rotation, 'z').listen()
+        }
     }
 
     resize () {

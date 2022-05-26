@@ -22,7 +22,7 @@ void main()
     * Position
     */
 
-    // easeOutQuint
+    // Use `easeOutQuint` move particle from start position to end position
     // https://www.desmos.com/calculator/zmcin6ak84
     // https://easings.net/#easeOutQuint
     vec3 p;     // position

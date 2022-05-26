@@ -16,9 +16,9 @@ export default class Time extends EventEmitter {
         this.elapsedTime = 0
 
         // Add stats UI
-        this.stats = new Stats()
-        this.stats.showPanel(0)
         if (this.debug.active) {
+            this.stats = new Stats()
+            this.stats.showPanel(0)
             document.body.appendChild(this.stats.dom)
         }
 
@@ -30,13 +30,18 @@ export default class Time extends EventEmitter {
 
     tick () {
         this.elapsedTime = this.clock.getElapsedTime()
-
         this.trigger('tick')
 
         window.requestAnimationFrame(() => {
-            this.stats.begin()
+            if (this.debug.active) {
+                this.stats.begin()
+            }
+
             this.tick()
-            this.stats.end()
+
+            if (this.debug.active) {
+                this.stats.end()
+            }
         })
     }
 

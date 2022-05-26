@@ -2,6 +2,9 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './event_emitter.js'
 
+/**
+ * Handle resource loading and emitting events
+ */
 export default class Resources extends EventEmitter {
     constructor(sources) {
         super()

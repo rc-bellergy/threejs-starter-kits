@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import Sizes from "./utils/sizes"
 import Time from "./utils/time"
 import Resources from './utils/resources'
+import Animation from './utils/animation'
 import Camera from "./camera"
 import Renderer from './renderer'
 import World from './world/world'
@@ -36,6 +37,7 @@ export default class App {
         this.scene.background = new THREE.Color(0x14213d)
         this.resources = new Resources(sources)
         this.camera = new Camera()
+        this.animation = new Animation()
         this.renderer = new Renderer()
         this.world = new World()
 

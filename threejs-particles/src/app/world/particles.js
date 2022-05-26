@@ -15,7 +15,7 @@ export default class Particles {
         this.settings = {
             particlesSize: 18,
             fogNear: 0,
-            fogFar: 50
+            fogFar: 30
         }
 
         this.shaderMaterial = new THREE.ShaderMaterial({
@@ -35,8 +35,8 @@ export default class Particles {
             },
         })
         const particles = this.getParticles(particlesData, 1, [0, 220, 255])
-        const object = this.createParticlesObject(particles, this.shaderMaterial)
-        this.scene.add(object)
+        this.object = this.createParticlesObject(particles, this.shaderMaterial)
+        this.scene.add(this.object)
 
         // Debug
         this.setDebug()
@@ -73,6 +73,7 @@ export default class Particles {
 
     update () {
         this.shaderMaterial.uniforms.uTime.value = this.time.elapsedTime
+        this.object.rotation.y += 0.001
     }
 
     createParticlesObject (particles, shaderMaterial) {
