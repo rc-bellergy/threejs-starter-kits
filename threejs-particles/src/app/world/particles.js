@@ -13,9 +13,9 @@ export default class Particles {
         this.debug = this.app.debug
 
         this.settings = {
-            particlesSize: 18,
+            particlesSize: 60,
             fogNear: 0,
-            fogFar: 30
+            fogFar: 40
         }
 
         this.shaderMaterial = new THREE.ShaderMaterial({
@@ -52,7 +52,7 @@ export default class Particles {
             this.debugFolder = this.debug.ui.addFolder('Particles')
             this.debugFolder
                 .add(this.settings, 'particlesSize').name('Particles Size')
-                .min(1).max(50).step(1)
+                .min(1).max(100).step(1)
                 .onChange(() => {
                     this.shaderMaterial.uniforms.uSize.value = this.settings.particlesSize * this.sizes.pixelRatio
                 })

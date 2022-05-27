@@ -12,8 +12,9 @@ void main()
     float alpha = distance(gl_PointCoord, vec2(0.5));
     float radius = 0.4;
 
-    alpha = step(radius, alpha) + fogFactor;
+    // alpha = step(radius, alpha) + fogFactor;
     alpha = 1.0 - alpha;
+    alpha = pow(alpha, 5.0) - fogFactor;
     gl_FragColor = vec4(vColor, alpha);
 
 }
