@@ -1,7 +1,7 @@
 export default [
     {
-        name: 'splashWater',
-        type: 'csv',
-        path: 'models/splash-water.csv'
+        name: 'splashWaterXZ',
+        type: 'xz',
+        path: 'models/splash-water.csv.xz'
     }
 ]

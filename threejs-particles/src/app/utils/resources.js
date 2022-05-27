@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { XzReadableStream } from 'xzwasm'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './event_emitter.js'
 
@@ -37,6 +38,19 @@ export default class Resources extends EventEmitter {
                             this.sourceLoaded(source, data)
                         }
                     )
+                    break;
+
+                case 'xz':
+                    const discompress = async (source) => {
+                        const request = await fetch(source.path)
+                        const response = new Response(
+                            new XzReadableStream(request.body)
+                        )
+                        const data = await response.text()
+                        console.log(data)
+                        this.sourceLoaded(source, data)
+                    }
+                    discompress(source)
                     break;
 
                 default:

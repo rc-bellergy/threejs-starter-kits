@@ -14,7 +14,7 @@ export default class Wrold {
             this.app.canvas.style.setProperty('display', 'block')
 
             // Setup
-            this.particles = new Particles(this.resources.items['splashWater'])
+            this.particles = new Particles(this.resources.items['splashWaterXZ'])
         })
     }
 }
