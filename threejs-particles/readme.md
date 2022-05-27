@@ -18,3 +18,6 @@ npm run dev
 npm run build
 ```
 
+## Live Demo
+https://designquest.com.hk/demo/threejs/compressed-patricles/
+
